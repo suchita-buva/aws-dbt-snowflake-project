@@ -1,0 +1,23 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# dbt generated folders
+target/
+logs/
+dbt_packages/
+
+# Editor
+.vscode/
+
+# Environment files
+.env
+
+profiles.yml
