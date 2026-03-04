@@ -16,3 +16,8 @@ SELECT
     CREATED_AT
 FROM 
     {{ ref('bronze_bookings') }}
+
+/*to handle late-arriving updates*/
+{% if is_incremental() %}
+WHERE CREATED_AT >= DATEADD(day, -7, CURRENT_DATE)
+{% endif %}
