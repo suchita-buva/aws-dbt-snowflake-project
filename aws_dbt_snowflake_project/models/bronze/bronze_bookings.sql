@@ -6,5 +6,5 @@ SELECT * FROM {{ source('staging', 'bookings') }}
 
 /* to load only incremental data using date column */
 {% if is_incremental() %}
-  WHERE CREATED_AT > (SELECT COALESCE(MAX(CREATED_AT), '1900-01-01') FROM {{ this }}) 
+    WHERE CREATED_AT >= DATEADD(day, -7, CURRENT_DATE)
 {% endif %}
