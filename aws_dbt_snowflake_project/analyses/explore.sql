@@ -1,1 +1,1 @@
-select * from {{ ref('bronz_hosts') }}
+select * from {{ ref('obt') }}
