@@ -76,10 +76,11 @@ AWS S3 → Snowflake Stage → dbt Transformations → Analytics Tables
 ---
 
 ## 📸 Project Screenshots (Add Here)
+### Project Structure
+![Project Structure](images/project_structure.png)
 
-* dbt DAG Screenshot
-* Snowflake Tables
-* Query Results
+### Sample Transformation (SQL Model)
+![SQL Model](images/sql-model.png)
 
 ---
 
