@@ -1,3 +1,4 @@
+-- Incremental model to calculate total booking amount with late-arriving data handling
 {{
   config(
       materialized = 'incremental',
