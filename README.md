@@ -1,83 +1,162 @@
-# 🏡 Airbnb Data Engineering Pipeline (Snowflake + dbt + AWS)
+# 🏡 Airbnb Data Pipeline (Snowflake + dbt + Airflow)
 
 ## 📌 Overview
 
-This project demonstrates an end-to-end ELT data pipeline built using AWS S3, Snowflake, and dbt.
-The pipeline ingests raw Airbnb dataset, performs transformations using dbt, and creates analytics-ready data models.
+This project demonstrates an end-to-end **dbt-driven ELT pipeline** built on Snowflake using **medallion architecture (Bronze, Silver, Gold)**.
 
----
-
-## ⚙️ Tech Stack
-
-* **Cloud Storage:** AWS S3
-* **Data Warehouse:** Snowflake
-* **Transformation Tool:** dbt
-* **Language:** SQL
-* **Version Control:** Git
+The pipeline ingests Airbnb dataset into Snowflake staging tables and transforms it into analytics-ready datasets using dbt models, reusable macros, and orchestrated workflows.
 
 ---
 
 ## 🏗️ Architecture
 
-```
-AWS S3 → Snowflake Stage → dbt Transformations → Analytics Tables
-```
+![Architecture Diagram](aws_dbt_snowflake_project/images/architecture.png)
+
+---
+
+## ⚙️ Tech Stack
+
+- **Cloud Platform:** AWS (S3 - data storage layer)  
+- **Data Warehouse:** Snowflake  
+- **Transformation:** dbt (Data Build Tool)  
+- **Orchestration:** Apache Airflow  
+- **Language:** SQL  
+- **Version Control:** Git & GitHub 
 
 ---
 
 ## 🔄 Data Pipeline Flow
 
-1. Raw Airbnb data is stored in **AWS S3**
-2. Data is loaded into **Snowflake staging tables** using external/internal stages
-3. **dbt models** transform raw data into structured layers:
-
-   * Staging Layer
-   * Intermediate Layer
-   * Mart Layer
-4. Final tables are optimized for **analytics and reporting**
+```
+CSV Files
+   ↓
+Snowflake (Staging Layer)
+   ↓
+dbt Bronze (Incremental Models)
+   ↓
+dbt Silver (Data Cleaning & Transformation)
+   ↓
+dbt Gold (OBT + Fact Tables)
+   ↓
+Airflow (Orchestration Layer)
+   ↓
+Analytics / BI
+```
 
 ---
 
-## 📊 Data Modeling
+## 🧱 Data Modeling (Medallion Architecture)
 
-* Implemented **Star Schema**
-* Fact and dimension tables created for business analysis
-* Modular and reusable dbt models
+### 🟫 Bronze Layer (Incremental Ingestion)
+
+* Built using **dbt incremental models**
+* Loads only new data from staging tables
+* Models:
+
+  * `bronze_listings`
+  * `bronze_hosts`
+  * `bronze_bookings`
 
 ---
 
-## ✅ Data Quality Checks
+### 🟨 Silver Layer (Transformation Layer)
 
-* Implemented dbt tests:
+* Data cleaning and standardization
+* Implemented reusable **dbt macros**:
+
+  * `multiply` → calculates total booking value
+  * `tag` → categorizes price into Low/Medium/High
+  * `trimmer` → trims and standardizes text fields
+* Additional transformations using CASE logic
+
+---
+
+### 🟥 Gold Layer (Business Layer)
+
+* Built analytics-ready datasets
+* Created:
+
+  * **OBT (One Big Table)** by joining all entities
+  * **Fact table** for numerical metrics
+
+---
+
+## 🔧 dbt Features Implemented
+
+* Incremental Models for efficient data processing
+* Modular transformations using `ref()`
+* Reusable macros for business logic
+* Layered architecture (Bronze → Silver → Gold)
+
+---
+
+## ⚙️ Orchestration (Airflow)
+
+* Designed an Airflow DAG to automate pipeline execution
+* Features:
+
+  * Task dependency management
+  * Parallel execution of models within Bronze and Silver layers
+  * Sequential execution of Gold layer (OBT → Fact)
+  * Data quality checks using `dbt test`
+  * Failure alert mechanism
+
+---
+
+## 📂 Project Structure
+
+```
+aws_dbt_snowflake_project/
+│
+├── models/
+│   ├── bronze/
+│   ├── silver/
+│   ├── gold/
+│
+├── macros/
+│
+├── airflow/
+│   └── dags/
+│       └── airbnb_pipeline.py
+│
+├── architecture.png
+├── README.md
+```
+
+---
+
+## 🧪 Data Quality
+
+* Implemented dbt tests such as:
 
   * `not_null`
   * `unique`
-  * `relationships`
-* Ensures reliability and consistency of data
+* Ensures reliability and consistency of transformed data
 
 ---
 
-## ⚡ Key Features
+## 🚀 Key Highlights
 
-* End-to-end ELT pipeline
-* Modular transformations using dbt
-* Scalable Snowflake architecture
-* Data quality validation using dbt tests
-* Optimized SQL transformations for performance
-
----
-
-## 🚀 Future Enhancements
-
-* Add orchestration using Airflow
-* Implement incremental models in dbt
-* Add data visualization layer (Power BI / Tableau)
+* Built a **dbt-driven ELT pipeline** with modular design
+* Implemented **incremental data processing** for performance optimization
+* Designed **scalable medallion architecture**
+* Integrated **Airflow for orchestration and monitoring**
+* Created **business-ready datasets for analytics**
 
 ---
 
-## 📸 Project Screenshots (Add Here)
-### Project Structure
-![Project Structure](aws_dbt_snowflake_project/images/Project_structure.png)
+## 💬 Project Summary
+
+This project showcases the design and implementation of a modern data engineering pipeline using Snowflake, dbt, and Airflow. It highlights best practices in data modeling, transformation, and orchestration, making it production-ready and scalable.
+
+---
+
+## 🔗 Author
+
+**Suchita Buva**
+🔗 GitHub: https://github.com/suchita-buva
+
+---
 
 ### Sample Transformation (SQL Model)
 ![SQL Model](aws_dbt_snowflake_project/images/SQL-Model.png)
