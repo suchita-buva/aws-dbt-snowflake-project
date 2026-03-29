@@ -151,18 +151,14 @@ This project showcases the design and implementation of a modern data engineerin
 
 ---
 
+### Sample Transformation (SQL Model)
+![SQL Model](aws_dbt_snowflake_project/images/SQL-Model.png)
+
+---
+
 ## 🔗 Author
 
 **Suchita Buva**
 🔗 GitHub: https://github.com/suchita-buva
 
 ---
-
-### Sample Transformation (SQL Model)
-![SQL Model](aws_dbt_snowflake_project/images/SQL-Model.png)
-
----
-
-## 🔗 GitHub Repository
-
-https://github.com/suchita-buva/aws-dbt-snowflake-project
