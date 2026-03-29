@@ -10,7 +10,7 @@ The pipeline ingests Airbnb dataset into Snowflake staging tables and transforms
 
 ## 🏗️ Architecture
 
-![Architecture Diagram](aws_dbt_snowflake_project/images/architecture.png)
+![Architecture Diagram](aws_dbt_snowflake_project/images/architecture.png.png)
 
 ---
 
